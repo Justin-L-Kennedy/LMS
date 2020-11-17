@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.UI.MVC", "LMS.UI.MVC\LMS.UI.MVC.csproj", "{57797F6B-44E2-4AFD-9492-6549B19F2009}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.DATA.EF", "LMS.DATA.EF\LMS.DATA.EF.csproj", "{8D8077FA-BC4B-484D-ACA6-4EDF83DA928E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{57797F6B-44E2-4AFD-9492-6549B19F2009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57797F6B-44E2-4AFD-9492-6549B19F2009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57797F6B-44E2-4AFD-9492-6549B19F2009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D8077FA-BC4B-484D-ACA6-4EDF83DA928E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D8077FA-BC4B-484D-ACA6-4EDF83DA928E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D8077FA-BC4B-484D-ACA6-4EDF83DA928E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D8077FA-BC4B-484D-ACA6-4EDF83DA928E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
