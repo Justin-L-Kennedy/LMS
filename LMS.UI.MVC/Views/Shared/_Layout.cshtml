@@ -1,49 +1,259 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>@ViewBag.Title | Just Act</title>
+
+    @*<!-- ** Plugins Needed for the Project ** -->
+    <!-- Bootstrap -->
+    <link href="~/Content/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- slick slider -->
+    <link href="~/Content/plugins/slick/slick.css" rel="stylesheet">
+    <!-- themefy-icon -->
+    <link href="~/Content/plugins/themify-icons/themify-icons.css" rel="stylesheet">
+    <!-- animation css -->
+    <link href="~/Content/plugins/animate/animate.css" rel="stylesheet">
+    <!-- aos -->
+    <link href="~/Content/plugins/aos/aos.css" rel="stylesheet">
+    <!-- venobox popup -->
+    <link href="~/Content/plugins/venobox/venobox.css" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link href="~/Content/css/style.css" rel="stylesheet">*@
+    <!--Favicon-->
+    <link href="~/Content/images/favicon.png" type="image/x-icon" rel="shortcut icon">
+    <link href="~/Content/images/favicon.png" type="image/x-icon" rel="icon">
+
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+    <!-- preloader start -->
+    <div class="preloader">
+        <img src="~/Content/images/preloader.gif" alt="preloader">
+    </div>
+    <!-- preloader end -->
+    <!-- header -->
+    <header class="fixed-top header">
+        <!-- top header -->
+        <div class="top-header py-2 bg-white">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-lg-6 text-center text-lg-left">
+                        <a class="text-color mr-3" href="+01-913-638-9056"><i class="ti-mobile"></i> 913-638-9056</a>
+                        <a class="text-color mr-3" href="mailto:Justin.L.Kennedy@outlook.com"><i class="ti-email"></i> Justin.L.Kennedy@outlook.com</a>
+                        <ul class="list-inline d-inline">
+                            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.facebook.com/Justin.Lloyd.Kennedy"><i class="ti-facebook"></i></a></li>
+                            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://github.com/Justin-L-Kennedy"><i class="ti-github"></i></a></li>
+                            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.linkedin.com/in/JustinLKennedy"><i class="ti-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 text-center text-lg-right">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#signupModal">Register</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+        </div>
+        <!-- navbar -->
+        <div class="navigation w-100">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")"><img src="~/Content/images/logo.png" alt="logo"></a>
+                    <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                            aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin")) {
-                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto text-center">
+                            <li class="nav-item">
+                                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item active">
+                                @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">COURSES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">LESSONS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">BLOG</a>
+                            </li>
+                            <li class="nav-item dropdown view">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    Pages
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Course Details</a>
+                                    <a class="dropdown-item" href="#">Lesson Details</a>
+                                    <a class="dropdown-item" href="#">Blog Details</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- /header -->
+    <!-- Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content rounded-0 border-0 p-4">
+                <div class="modal-header border-0">
+                    <h3>Register</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="login">
+                        <form action="#" class="row">
+                            <div class="col-12">
+                                <input type="text" class="form-control mb-3" id="signupFirstName" name="signupFirstName" placeholder="First Name">
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control mb-3" id="signupLastName" name="signupLastName" placeholder="Last Name">
+                            </div>
+                            <div class="col-12">
+                                <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail" placeholder="Email">
+                            </div>
+                            <div class="col-12">
+                                <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword" placeholder="Password">
+                            </div>
+                            <div class="col-12">
+                                <input type="password" class="form-control mb-3" id="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirm Password">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">SIGN UP</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <!-- Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content rounded-0 border-0 p-4">
+                <div class="modal-header border-0">
+                    <h3>Login</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control mb-3" id="loginEmail" name="loginEmail" placeholder="Email">
+                        </div>
+                        <div class="col-12">
+                            <input type="password" class="form-control mb-3" id="loginPassword" name="loginPassword" placeholder="Password">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">LOGIN</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- Modal -->
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderBody()
+
+    <!-- footer -->
+    <footer>
+        <!-- newsletter -->
+        <div class="newsletter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+                        <h3 class="text-white">Subscribe Now</h3>
+                        <form action="#">
+                            <div class="input-wrapper">
+                                <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
+                                <button type="submit" value="send" class="btn btn-primary">Join</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer content -->
+        <div class="footer bg-footer section border-bottom">
+            <div class="container">
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+        <!-- copyright -->
+        <div class="copyright py-4 bg-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-7 text-sm-left text-center">
+                        <p class="mb-0">
+                            Copyright
+                            <script>
+                                var CurrentYear = new Date().getFullYear()
+                                document.write(CurrentYear)
+                            </script>
+                            © themefisher
+                        </p>
+                    </div>
+                    <div class="col-sm-5 text-sm-right text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a class="d-inline-block p-2" href="https://www.facebook.com/Justin.Lloyd.Kennedy"><i class="ti-facebook text-primary"></i></a></li>
+                            <li class="list-inline-item"><a class="d-inline-block p-2" href="https://github.com/Justin-L-Kennedy"><i class="ti-github text-primary"></i></a></li>
+                            <li class="list-inline-item"><a class="d-inline-block p-2" href="https://www.linkedin.com/in/JustinLKennedy"><i class="ti-linkedin text-primary"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /footer -->
+
+    @*<!-- jQuery -->
+    <script src="~/Content/plugins/jQuery/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/Content/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- slick slider -->
+    <script src="~/Content/plugins/slick/slick.min.js"></script>
+    <!-- aos -->
+    <script src="~/Content/plugins/aos/aos.js"></script>
+    <!-- venobox popup -->
+    <script src="~/Content/plugins/venobox/venobox.min.js"></script>
+    <!-- filter -->
+    <script src="~/Content/plugins/filterizr/jquery.filterizr.min.js"></script>
+    <!-- google map -->
+    <script src="~/Content/plugins/google-map/gmap.js"></script>
+    <!-- Main Script -->
+    <script src="~/Content/js/script.js"></script>*@
+    @Scripts.Render("~/bundles/template")
+
+    @RenderSection("scripts", false)
+
 </body>
 </html>
