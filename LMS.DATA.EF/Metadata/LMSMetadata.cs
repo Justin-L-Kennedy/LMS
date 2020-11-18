@@ -25,6 +25,11 @@ namespace LMS.DATA.EF//.Metadata
         [Display(Name = "Course Description")]
         public string CourseDescription { get; set; }
 
+        [DisplayFormat(NullDisplayText = "N/A")]
+        [StringLength(100, ErrorMessage = "* Course Image cannot be longer than 100 characters")]
+        [Display(Name = "Course Image")]
+        public string CourseImage { get; set; }
+
         [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
     }

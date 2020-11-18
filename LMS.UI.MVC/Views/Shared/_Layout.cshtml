@@ -81,14 +81,14 @@
                             <li class="nav-item">
                                 @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                             </li>
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">COURSES</a>
+                                @Html.ActionLink("Courses", "Index", "Courses", null, new { @class = "nav-link" })
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">LESSONS</a>
+                                @Html.ActionLink("Lessons", "Index", "Lessons", null, new { @class = "nav-link" })
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">BLOG</a>
@@ -234,26 +234,47 @@
         </div>
     </footer>
     <!-- /footer -->
-
     @*<!-- jQuery -->
-    <script src="~/Content/plugins/jQuery/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="~/Content/plugins/bootstrap/bootstrap.min.js"></script>
-    <!-- slick slider -->
-    <script src="~/Content/plugins/slick/slick.min.js"></script>
-    <!-- aos -->
-    <script src="~/Content/plugins/aos/aos.js"></script>
-    <!-- venobox popup -->
-    <script src="~/Content/plugins/venobox/venobox.min.js"></script>
-    <!-- filter -->
-    <script src="~/Content/plugins/filterizr/jquery.filterizr.min.js"></script>
-    <!-- google map -->
-    <script src="~/Content/plugins/google-map/gmap.js"></script>
-    <!-- Main Script -->
-    <script src="~/Content/js/script.js"></script>*@
+        <script src="~/Content/plugins/jQuery/jquery.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="~/Content/plugins/bootstrap/bootstrap.min.js"></script>
+        <!-- slick slider -->
+        <script src="~/Content/plugins/slick/slick.min.js"></script>
+        <!-- aos -->
+        <script src="~/Content/plugins/aos/aos.js"></script>
+        <!-- venobox popup -->
+        <script src="~/Content/plugins/venobox/venobox.min.js"></script>
+        <!-- filter -->
+        <script src="~/Content/plugins/filterizr/jquery.filterizr.min.js"></script>
+        <!-- google map -->
+        <script src="~/Content/plugins/google-map/gmap.js"></script>
+        <!-- Main Script -->
+        <script src="~/Content/js/script.js"></script>*@
     @Scripts.Render("~/bundles/template")
 
     @RenderSection("scripts", false)
+
+    <script>
+        //use the selector values found (or declared) in your style sheet for the active class
+        //- for the code below your stylesheet would look like: .mainmenu ul li.selected a {//code}
+
+        $('.nav-item').each(function () {
+
+            //in this example the class is attached to the li, so you must go one level further to check
+            //the href value of the anchor tag and ensure it matches what is found in the /browser URL
+
+            if ($(this).find('a').attr('href') == window.location.pathname) {
+
+                //if they match add the correct class name. $(this) refers to the li
+                //(the last item in the DOM specified before the each function)
+
+                $(this).addClass('active');
+            }
+            if (window.location.pathname == 'home/index' || window.location.pathname == '/') {
+                $('#liHome').addClass('active');
+            }
+        });
+    </script>
 
 </body>
 </html>
