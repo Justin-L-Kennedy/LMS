@@ -6,7 +6,7 @@ using System;
 
 namespace LMS.UI.MVC.Utilities
 {
-    public class ImageUploadUtility
+    public class UploadUtility
     {
         /// <summary>
         /// Saves provided image as two separate files: full-sized and thumbnail versions.

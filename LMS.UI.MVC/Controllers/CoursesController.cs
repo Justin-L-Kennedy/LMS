@@ -73,7 +73,7 @@ namespace LMS.UI.MVC.Controllers
                             Image convertedImage = Image.FromStream(courseImage.InputStream);
                             int maxImageSize = 600;
                             int maxThumbSize = 300;
-                            ImageUploadUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                            UploadUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
                             #endregion
                         }
                     }
@@ -133,13 +133,13 @@ namespace LMS.UI.MVC.Controllers
                             Image convertedImage = Image.FromStream(courseImage.InputStream);
                             int maxImageSize = 600;
                             int maxThumbSize = 300;
-                            ImageUploadUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                            UploadUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
                             #endregion
 
                             if (course.CourseImage != null && course.CourseImage != "NoImage.png")
                             {
                                 string path = Server.MapPath("~/Content/images/courses/");
-                                ImageUploadUtility.Delete(path, course.CourseImage);
+                                UploadUtility.Delete(path, course.CourseImage);
                             }
                         }
                     }
@@ -179,7 +179,7 @@ namespace LMS.UI.MVC.Controllers
             if (course.CourseImage != null && course.CourseImage != "NoImage.png")
             {
                 string path = Server.MapPath("~/Content/images/courses/");
-                ImageUploadUtility.Delete(path, course.CourseImage);
+                UploadUtility.Delete(path, course.CourseImage);
             }
             db.Courses.Remove(course);
             db.SaveChanges();

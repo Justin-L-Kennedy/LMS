@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LMS.DATA.EF;
+using LMS.UI.MVC.Utilities; //added for access to Utilities
 
 namespace LMS.UI.MVC.Controllers
 {
@@ -48,10 +49,19 @@ namespace LMS.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson)
+        public ActionResult Create([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase lessonFile)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+                string[] goodExts = new string[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" };
+                //check that the uploaded file ext is in our list of good file extensions && check file size <= 4mb (max by default from ASP.NET)
+                if (goodExts.Contains(lessonFile.FileName.Substring(lessonFile.FileName.LastIndexOf("."))) && lessonFile.ContentLength <= 4194304)
+                {
+                    lessonFile.SaveAs(Server.MapPath("~/Content/images/lessons/" + lessonFile.FileName));
+                }
+                #endregion
+
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +92,24 @@ namespace LMS.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson)
+        public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase lessonFile)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+                string[] goodExts = new string[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" };
+                //check that the uploaded file ext is in our list of good file extensions && check file size <= 4mb (max by default from ASP.NET)
+                if (goodExts.Contains(lessonFile.FileName.Substring(lessonFile.FileName.LastIndexOf("."))) && lessonFile.ContentLength <= 4194304)
+                {
+                    if (lesson.PdfFilename != null) //Delete the old file of the record that is being edited
+                    {
+                        string path = Server.MapPath("~/Content/images/lessons/");
+                        UploadUtility.Delete(path, lesson.PdfFilename);
+                    }
+                    lessonFile.SaveAs(Server.MapPath("~/Content/images/lessons/" + lessonFile.FileName));
+                }
+                #endregion
+
                 db.Entry(lesson).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -115,6 +139,12 @@ namespace LMS.UI.MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Lesson lesson = db.Lessons.Find(id);
+            //Delete the file of the record that is being removed
+            if (lesson.PdfFilename != null)
+            {
+                string path = Server.MapPath("~/Content/images/lessons/");
+                UploadUtility.Delete(path, lesson.PdfFilename);
+            }
             db.Lessons.Remove(lesson);
             db.SaveChanges();
             return RedirectToAction("Index");

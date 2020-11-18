@@ -7,15 +7,16 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Courses", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Lesson</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.LessonID)
+        @Html.HiddenFor(model => model.PdfFilename)
 
         <div class="form-group">
             @Html.LabelFor(model => model.LessonTitle, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -52,7 +53,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
+                <iframe src="~/Content/images/lessons/@Model.PdfFilename" style="width: 100%; height: 600px"></iframe>
+                <hr />
+                <input type="file" name="lessonFile" />
+                @* The name attribute value MUST match the parameter name in the POST version of the Edit ActionResult method that is in the controller *@
                 @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })
             </div>
         </div>

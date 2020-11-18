@@ -39,7 +39,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PdfFilename)
+            @*@Html.DisplayFor(model => model.PdfFilename)*@
+            <a class="venobox" href="~/Content/images/lessons/@Model.PdfFilename" data-vbtype="iframe"><i class="ti-file"></i></a>
         </dd>
 
         <dt>

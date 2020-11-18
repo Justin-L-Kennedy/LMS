@@ -40,7 +40,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PdfFilename)
+            @*@Html.DisplayFor(model => model.PdfFilename)*@
+            <iframe src="~/Content/images/lessons/@Model.PdfFilename" style="width: 100%; height: 600px"></iframe>
         </dd>
 
         <dt>

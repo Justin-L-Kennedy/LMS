@@ -40,6 +40,7 @@
                 <img src="~/Content/images/courses/@Model.CourseImage" style="max-width:100px;" />
                 <hr />
                 <input type="file" name="courseImage" />
+                @* The name attribute value MUST match the parameter name in the POST version of the Edit ActionResult method that is in the controller *@
                 @Html.ValidationMessageFor(model => model.CourseImage, "", new { @class = "text-danger" })
             </div>
         </div>
