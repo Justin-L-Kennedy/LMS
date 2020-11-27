@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using LMS.DATA.EF;
 using LMS.UI.MVC.Utilities; //added for access to Utilities
+using LMS.UI.MVC.Models;
 
 namespace LMS.UI.MVC.Controllers
 {

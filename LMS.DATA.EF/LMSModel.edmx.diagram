@@ -9,12 +9,14 @@
         <EntityTypeShape EntityType="LMSModel.Course" Width="1.5" PointX="1.5" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LMSModel.Lesson" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LMSModel.LessonView" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LMSModel.UserDetail" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.UserDetail" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="LMSModel.FK_CourseCompletions_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="LMSModel.FK_CourseCompletions_UserDetails" ManuallyRouted="false" />
         <AssociationConnector Association="LMSModel.FK_Lessons_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="LMSModel.FK_LessonViews_Lessons" ManuallyRouted="false" />
         <AssociationConnector Association="LMSModel.FK_LessonViews_UserDetails" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LMSModel.AspNetUser" Width="1.5" PointX="0.75" PointY="0.5" />
+        <AssociationConnector Association="LMSModel.FK_UserDetails_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

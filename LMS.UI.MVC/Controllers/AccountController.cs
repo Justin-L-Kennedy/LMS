@@ -62,30 +62,46 @@ namespace LMS.UI.MVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(string email, string password, string returnUrl)
         {
+            LoginViewModel model = new LoginViewModel()
+            {
+                Email = email,
+                Password = password,
+                RememberMe = false
+            };
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            // This doen't count login failures towards lockout only two factor authentication
-            // To enable password failures to trigger lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+            SignInManager.PasswordSignIn(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            return RedirectToLocal(returnUrl);
         }
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    // This doen't count login failures towards lockout only two factor authentication
+        //    // To enable password failures to trigger lockout, change to shouldLockout: true
+        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return RedirectToLocal(returnUrl);
+        //        case SignInStatus.LockedOut:
+        //            return View("Lockout");
+        //        case SignInStatus.RequiresVerification:
+        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+        //        case SignInStatus.Failure:
+        //        default:
+        //            ModelState.AddModelError("", "Invalid login attempt.");
+        //            return View(model);
+        //    }
+        //}
 
         //
         // GET: /Account/VerifyCode
@@ -146,39 +162,76 @@ namespace LMS.UI.MVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register(string firstName, string lastName, string email, string password, string confirmPassword)
         {
-            if (ModelState.IsValid)
+            RegisterViewModel model = new RegisterViewModel()
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    #region Assign UserDetails during registration
-                    UserDetail newUserDetails = new UserDetail();
-                    newUserDetails.UserID = user.Id;
-                    newUserDetails.FirstName = model.FirstName;
-                    newUserDetails.LastName = model.LastName;
-
-                    LMSEntities db = new LMSEntities();
-                    db.UserDetails.Add(newUserDetails);
-                    db.SaveChanges();
-                    #endregion
-
-                    return View("Login");
-
-                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    //ViewBag.Link = callbackUrl;
-                    //return View("DisplayEmail");
-                }
-                AddErrors(result);
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Password = password,
+                ConfirmPassword = confirmPassword
+            };
+            if (!ModelState.IsValid)
+            {
+                return View(model);
             }
 
-            // If we got this far, something failed, redisplay form
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var result = UserManager.Create(user, model.Password);
+            if (result.Succeeded)
+            {
+                #region Assign UserDetails during registration
+                UserDetail newUserDetails = new UserDetail();
+                newUserDetails.UserID = user.Id;
+                newUserDetails.FirstName = model.FirstName;
+                newUserDetails.LastName = model.LastName;
+                UserManager.AddToRole(user.Id, "Talent");
+
+                LMSEntities db = new LMSEntities();
+                db.UserDetails.Add(newUserDetails);
+                db.SaveChanges();
+                #endregion
+
+                return View("Login");
+            }
+            AddErrors(result);
             return View(model);
         }
+        //public async Task<ActionResult> Register(RegisterViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+        //        var result = await UserManager.CreateAsync(user, model.Password);
+        //        if (result.Succeeded)
+        //        {
+        //            #region Assign UserDetails during registration
+        //            UserDetail newUserDetails = new UserDetail();
+        //            newUserDetails.UserID = user.Id;
+        //            newUserDetails.FirstName = model.FirstName;
+        //            newUserDetails.LastName = model.LastName;
+        //            UserManager.AddToRole(user.Id, "Talent");
+
+        //            LMSEntities db = new LMSEntities();
+        //            db.UserDetails.Add(newUserDetails);
+        //            db.SaveChanges();
+        //            #endregion
+
+        //            return View("Login");
+
+        //            //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+        //            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        //            //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+        //            //ViewBag.Link = callbackUrl;
+        //            //return View("DisplayEmail");
+        //        }
+        //        AddErrors(result);
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/ConfirmEmail

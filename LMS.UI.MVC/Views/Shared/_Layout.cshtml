@@ -59,10 +59,7 @@
                         </ul>
                     </div>
                     <div class="col-lg-6 text-center text-lg-right">
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#signupModal">Register</a></li>
-                        </ul>
+                        @Html.Partial("_LoginPartial")
                     </div>
                 </div>
             </div>
@@ -127,26 +124,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="login">
-                        <form action="#" class="row">
-                            <div class="col-12">
-                                <input type="text" class="form-control mb-3" id="signupFirstName" name="signupFirstName" placeholder="First Name">
-                            </div>
-                            <div class="col-12">
-                                <input type="text" class="form-control mb-3" id="signupLastName" name="signupLastName" placeholder="Last Name">
-                            </div>
-                            <div class="col-12">
-                                <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail" placeholder="Email">
-                            </div>
-                            <div class="col-12">
-                                <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword" placeholder="Password">
-                            </div>
-                            <div class="col-12">
-                                <input type="password" class="form-control mb-3" id="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirm Password">
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">SIGN UP</button>
-                            </div>
-                        </form>
+                        @Html.Partial("_RegisterModalPartial")
                     </div>
                 </div>
             </div>
@@ -164,17 +142,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" class="row">
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="loginEmail" name="loginEmail" placeholder="Email">
-                        </div>
-                        <div class="col-12">
-                            <input type="password" class="form-control mb-3" id="loginPassword" name="loginPassword" placeholder="Password">
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">LOGIN</button>
-                        </div>
-                    </form>
+                    @Html.Partial("_LoginModalPartial")
                 </div>
             </div>
         </div>
