@@ -10,40 +10,65 @@
         <div class="row">
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
-                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">@ViewBag.Title</a></li>
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#Courses">@ViewBag.Title</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted"></li>
                 </ul>
-                <p class="text-lighten">Our courses offer aspiring actors gain an understanding of the entertainment industry covering multiple subjects successful beginnings of a successful career in acting.</p>
+                <p class="text-lighten">Our courses offer aspiring actors the opportunity to gain a better understanding of the entertainment industry and how to jump-start a successful career in acting.</p>
             </div>
         </div>
     </div>
 </section>
 <!-- /page title -->
 <!-- courses -->
-<section class="section">
+<section class="section" id="Courses">
     <div class="container">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
         <!-- course list -->
         <div class="row justify-content-center">
             <!-- course item -->
-            <div class="col-lg-4 col-sm-6 mb-5">
-                <div class="card p-0 border-primary rounded-0 hover-shadow">
-                    <img class="card-img-top rounded-0" src="~/Content/images/courses/course-2.jpg" alt="course thumb">
-                    <div class="card-body">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-                            <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-                        </ul>
-                        <a href="#">
-                            <h4 class="card-title">Programming</h4>
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card p-0 border-primary rounded-0 hover-shadow">
+                        <a href="@Url.Action("Details", new { id = item.CourseID })">
+                            <img class="card-img-top rounded-0" src="~/Content/images/courses/t_@item.CourseImage" alt="@item.CourseName" title="@item.CourseName">
                         </a>
-                        <p class="card-text mb-4">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna.
-                        </p>
-                        <a href="#" class="btn btn-primary btn-sm">Apply now</a>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-8">
+                                    <i class="ti-calendar mr-1 text-color"></i>
+                                    <a class="text-color" href="@Url.Action("Index", "CourseCompletions")">
+                                        @if (item.DateCompleted == new DateTime(0001, 1, 1))
+                                        {
+                                            @($"Incomplete")
+                                        }
+                                        else
+                                        {
+                                            @($"Completed: {item.DateCompleted:d}")
+                                        }
+                                    </a>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <a href="@Url.Action("Edit", new { id = item.CourseID })"><i class="ti-pencil-alt"></i></a>
+                                    <a href="@Url.Action("Delete", new { id = item.CourseID })"><i class="ti-trash"></i></a>
+                                </div>
+                            </div>
+                            <a href="@Url.Action("Details", new { id = item.CourseID })">
+                                <h4 class="card-title">@item.CourseName</h4>
+                            </a>
+                            @*<p class="card-text mb-4">
+                                @item.CourseDescription
+                            </p>*@
+                            <div class="row no-gutters">
+                                <a href="@Url.Action("Details", new { id = item.CourseID })" class="btn btn-primary btn-sm col-5">Details</a>
+                                <a href="@Url.Action("Index", "Lessons")" class="btn btn-primary btn-sm col-5 ml-auto">Lessons</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             <!-- course item -->
         </div>
         <!-- /course list -->
@@ -51,7 +76,7 @@
 </section>
 <!-- /courses -->
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -94,4 +119,4 @@
         </tr>
     }
 
-</table>
+</table>*@

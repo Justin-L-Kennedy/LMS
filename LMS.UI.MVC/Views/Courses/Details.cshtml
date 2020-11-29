@@ -5,15 +5,15 @@
 }
 
 <!-- page title -->
-<section class="page-title-section overlay" data-background="../Content/images/backgrounds/page-title.jpg">
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
-                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">Our Courses</a></li>
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@Url.Action("Index")">Our Courses</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted">@ViewBag.Title</li>
                 </ul>
-                <p class="text-lighten">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+                <p class="text-lighten">Our courses offer aspiring actors the opportunity to gain a better understanding of the entertainment industry and how to jump-start a successful career in acting.</p>
             </div>
         </div>
     </div>
@@ -25,13 +25,13 @@
         <div class="row">
             <div class="col-12 mb-4">
                 <!-- course thumb -->
-                <img src="~/Content/images/courses/course-single.jpg" class="img-fluid w-100">
+                <img src="~/Content/images/courses/@Model.CourseImage" alt="@Model.CourseName" title="@Model.CourseName" class="img-fluid w-100">
             </div>
         </div>
         <!-- course info -->
         <div class="row align-items-center mb-5">
             <div class="col-xl-3 order-1 col-sm-6 mb-4 mb-xl-0">
-                <h2>Photography</h2>
+                <h2>@Model.CourseName</h2>
             </div>
             <div class="col-xl-6 order-sm-3 order-xl-2 col-12 order-2">
                 <ul class="list-inline text-xl-center">
@@ -39,8 +39,8 @@
                         <div class="d-flex align-items-center">
                             <i class="ti-book text-primary icon-md mr-2"></i>
                             <div class="text-left">
-                                <h6 class="mb-0">COURSES</h6>
-                                <p class="mb-0">06 Month</p>
+                                <h6 class="mb-0">LESSONS</h6>
+                                <p class="mb-0">@Model.Lessons.Count</p>
                             </div>
                         </div>
                     </li>
@@ -48,24 +48,35 @@
                         <div class="d-flex align-items-center">
                             <i class="ti-alarm-clock text-primary icon-md mr-2"></i>
                             <div class="text-left">
-                                <h6 class="mb-0">DURATION</h6>
-                                <p class="mb-0">03 Hours</p>
+                                <h6 class="mb-0">LESSONS</h6>
+                                <p class="mb-0">@Model.Lessons.Count Completed</p>
                             </div>
                         </div>
                     </li>
                     <li class="list-inline-item mr-4 mb-3 mb-sm-0">
                         <div class="d-flex align-items-center">
-                            <i class="ti-wallet text-primary icon-md mr-2"></i>
+                            <i class="ti-calendar text-primary icon-md mr-2"></i>
                             <div class="text-left">
-                                <h6 class="mb-0">FEE</h6>
-                                <p class="mb-0">From: $699</p>
+                                <h6 class="mb-0">COURSE</h6>
+                                <div class="mt-1">
+                                    <a class="text-color mb-0" href="@Url.Action("Index", "CourseCompletions")">
+                                        @if (Model.DateCompleted == new DateTime(0001, 1, 1))
+                                        {
+                                            @($"Incomplete")
+                                        }
+                                        else
+                                        {
+                                            @($"Completed: {Model.DateCompleted:d}")
+                                        }
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="col-xl-3 text-sm-right text-left order-sm-2 order-3 order-xl-3 col-sm-6 mb-4 mb-xl-0">
-                <a href="#" class="btn btn-primary">Apply now</a>
+                <a href="#" class="btn btn-primary">Lessons</a>
             </div>
             <!-- border -->
             <div class="col-12 mt-4 order-4">
@@ -77,80 +88,23 @@
             <div class="col-12 mb-4">
                 <h3>About Course</h3>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                    anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                    dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-                    ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-                    labore et dolore magnam aliquam quaerat voluptatem.
+                    @Model.CourseDescription
                 </p>
             </div>
             <div class="col-12 mb-4">
                 <h3 class="mb-3">Requirements</h3>
                 <div class="col-12 px-0">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <ul class="list-styled">
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul class="list-styled">
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                                @foreach (var item in Model.Lessons)
+                                {
+                                    <li><a href="@Url.Action("Index", "Lessons", new { id = item.LessonID })">@item.LessonTitle</a></li>
+                                }
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 mb-4">
-                <h3 class="mb-3">How to Apply</h3>
-                <ul class="list-styled">
-                    <li>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-                        dolor. Lorem, ipsum.
-                    </li>
-                    <li>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-                        dolor. Lorem, ipsum.
-                    </li>
-                    <li>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-                        dolor. Lorem, ipsum.
-                    </li>
-                    <li>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-                        dolor. Lorem, ipsum.
-                    </li>
-                    <li>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae obcaecati unde nulla? Lorem, ipsum
-                        dolor. Lorem, ipsum.
-                    </li>
-                </ul>
-            </div>
-            <div class="col-12 mb-5">
-                <h3>Fees and Funding</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                    anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                    dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-                    ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-                    labore et dolore magnam aliquam quaerat voluptatem.
-                </p>
             </div>
         </div>
         <!-- course details -->
@@ -162,7 +116,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="section-title">Related Course</h2>
+                <h2 class="section-title">Related Courses</h2>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -231,46 +185,6 @@
 </section>
 <!-- /related course -->
 
-<div>
-    <h4>Course</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CourseName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CourseName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CourseDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CourseDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CourseImage)
-        </dt>
-
-        <dd>
-            @*@Html.DisplayFor(model => model.CourseImage)*@
-            <img src="~/Content/images/courses/@Model.CourseImage" alt="@Model.CourseName" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseID })
 </p>

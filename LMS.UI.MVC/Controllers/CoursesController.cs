@@ -72,8 +72,8 @@ namespace LMS.UI.MVC.Controllers
                             #region Resize Image
                             string savePath = Server.MapPath("~/Content/images/courses/");
                             Image convertedImage = Image.FromStream(courseImage.InputStream);
-                            int maxImageSize = 600;
-                            int maxThumbSize = 300;
+                            int maxImageSize = 800;
+                            int maxThumbSize = 350;
                             UploadUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
                             #endregion
                         }
@@ -132,8 +132,8 @@ namespace LMS.UI.MVC.Controllers
                             #region Resize Image
                             string savePath = Server.MapPath("~/Content/images/courses/");
                             Image convertedImage = Image.FromStream(courseImage.InputStream);
-                            int maxImageSize = 600;
-                            int maxThumbSize = 300;
+                            int maxImageSize = 800;
+                            int maxThumbSize = 350;
                             UploadUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
                             #endregion
 
