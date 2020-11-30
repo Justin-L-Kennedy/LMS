@@ -88,19 +88,20 @@
                             <li class="nav-item">
                                 @Html.ActionLink("Lessons", "Index", "Lessons", null, new { @class = "nav-link" })
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">BLOG</a>
-                            </li>
                             <li class="nav-item dropdown view">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
-                                    Pages
+                                    Details
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Course Details</a>
-                                    <a class="dropdown-item" href="#">Lesson Details</a>
-                                    <a class="dropdown-item" href="#">Blog Details</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "LessonViews")">Lessons Viewed</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "CourseCompletions")">Courses Completed</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "UsersAdmin")">Users Admin</a>
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Events</a>
                             </li>
                             <li class="nav-item">
                                 @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })

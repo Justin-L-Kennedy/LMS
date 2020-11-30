@@ -1,10 +1,24 @@
 ﻿@model LMS.DATA.EF.LessonView
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Lesson View";
 }
 
-<h2>Delete</h2>
+<!-- page title -->
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@Url.Action("Index")">Lesson Views</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted">@ViewBag.Title</li>
+                </ul>
+                <p class="text-lighten">Keyser Söze.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /page title -->
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -37,7 +51,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

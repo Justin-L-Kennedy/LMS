@@ -4,10 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using LMS.DATA.EF;
 using LMS.UI.MVC.Utilities; //added for access to Utilities
+using Microsoft.AspNet.Identity;
 
 namespace LMS.UI.MVC.Controllers
 {
@@ -16,14 +18,43 @@ namespace LMS.UI.MVC.Controllers
         private LMSEntities db = new LMSEntities();
 
         // GET: Lessons
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var lessons = db.Lessons.Include(l => l.Course);
-            return View(lessons.ToList());
+            string currentUserID = User.Identity.GetUserId();
+            if (id == null)
+            {
+                var lessons = db.Lessons.Include(l => l.Course);
+                return View(lessons.ToList());
+            }
+            else
+            {
+                if (User.IsInRole("Talent"))
+                {
+                    var lessons = db.Lessons.Include(l => l.Course).Where(l => l.CourseID == id);
+                    var lessonViews = db.LessonViews.Where(lv => lv.UserID == currentUserID);
+                    foreach (var item in lessons)
+                    {
+                        foreach (var view in lessonViews)
+                        {
+                            if (view.LessonID == item.LessonID)
+                            {
+                                item.HasViewed = true;
+                                item.DateViewed = view.DateViewed;
+                            }
+                        }
+                    }
+                    return View(lessons.ToList());
+                }
+                else
+                {
+                    var lessons = db.Lessons.Include(l => l.Course).Where(l => l.CourseID == id);
+                    return View(lessons.ToList());
+                }
+            }
         }
 
         // GET: Lessons/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -34,6 +65,60 @@ namespace LMS.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+
+            #region Lesson View DateTime
+            string currentUserID = User.Identity.GetUserId();
+            if (User.IsInRole("Talent"))
+            {
+                LessonView lessonView = new LessonView();
+                lessonView.UserID = currentUserID;
+                lessonView.LessonID = id;
+                lessonView.DateViewed = DateTime.Now;
+
+                var viewDate = db.LessonViews.Where(lv => lv.LessonID == id && lv.UserID == currentUserID).FirstOrDefault();
+                if (viewDate == null)
+                {
+                    db.LessonViews.Add(lessonView);
+                    db.SaveChanges();
+                }
+            }
+            #endregion
+
+            #region Course Completion DateTime
+            if (User.IsInRole("Talent"))
+            {
+                int totalLessons = db.Lessons.Where(l => l.CourseID == lesson.CourseID && l.IsActive == true).Count();
+                int viewedLessons = db.LessonViews.Where(lv => lv.Lesson.CourseID == lesson.CourseID && lv.Lesson.IsActive == true && lv.UserID == currentUserID).Count();
+                if (viewedLessons == totalLessons)
+                {
+                    CourseCompletion courseCompletion = new CourseCompletion();
+                    courseCompletion.UserID = currentUserID;
+                    courseCompletion.CourseID = lesson.CourseID;
+                    courseCompletion.DateCompleted = DateTime.Now;
+
+                    var completionDate = db.CourseCompletions.Where(cc => cc.CourseID == lesson.CourseID && cc.UserID == currentUserID).FirstOrDefault();
+                    if (completionDate == null)
+                    {
+                        db.CourseCompletions.Add(courseCompletion);
+                        db.SaveChanges();
+
+                        #region Course Completion Email
+                        string emailBody = $"{courseCompletion.UserDetail.FullName} completed the {courseCompletion.Course.CourseName} course on {courseCompletion.DateCompleted:d}.";
+                        MailMessage completionMsg = new MailMessage(
+                            "no-reply@justinlkennedy.com",
+                            "justin.l.kennedy@outlook.com",
+                            "Just Act! Course Completion",
+                            emailBody);
+                        completionMsg.IsBodyHtml = true;
+                        completionMsg.Priority = MailPriority.High;
+                        SmtpClient client = new SmtpClient("mail.justinlkennedy.com");
+                        client.Credentials = new NetworkCredential("no-reply@justinlkennedy.com", "C3ntr!q");
+                        #endregion
+                    }
+                }
+            }
+            #endregion
+
             return View(lesson);
         }
 

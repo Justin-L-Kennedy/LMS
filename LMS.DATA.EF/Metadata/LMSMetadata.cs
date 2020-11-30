@@ -108,6 +108,8 @@ namespace LMS.DATA.EF//.Metadata
     [MetadataType(typeof(LessonMetadata))]
     public partial class Lesson
     {
+        public bool HasViewed { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Viewed")]
         public System.DateTime DateViewed { get; set; }

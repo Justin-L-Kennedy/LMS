@@ -1,16 +1,29 @@
 ﻿@model LMS.DATA.EF.LessonView
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Lesson View";
 }
 
-<h2>Create</h2>
+<!-- page title -->
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@Url.Action("Index")">Lesson Views</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted">@ViewBag.Title</li>
+                </ul>
+                <p class="text-lighten">Keyser Söze.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /page title -->
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>LessonView</h4>
         <hr />

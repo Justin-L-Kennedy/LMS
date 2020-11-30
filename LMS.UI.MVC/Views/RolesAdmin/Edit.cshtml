@@ -1,16 +1,29 @@
 ﻿@model LMS.UI.MVC.Models.RoleViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Role";
 }
 
-<h2>Edit.</h2>
-
+<!-- page title -->
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@Url.Action("Index")">Roles</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted">@ViewBag.Title</li>
+                </ul>
+                <p class="text-lighten">@ViewBag.Title.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /page title -->
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Roles.</h4>
         <hr />
@@ -27,7 +40,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button type="submit" class="btn btn-primary">SAVE</button>
             </div>
         </div>
     </div>

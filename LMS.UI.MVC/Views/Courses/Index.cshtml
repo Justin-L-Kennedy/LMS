@@ -5,7 +5,7 @@
 }
 
 <!-- page title -->
-<section class="page-title-section overlay" data-background="../Content/images/backgrounds/page-title.jpg">
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -63,7 +63,7 @@
                             </p>*@
                             <div class="row no-gutters">
                                 <a href="@Url.Action("Details", new { id = item.CourseID })" class="btn btn-primary btn-sm col-5">Details</a>
-                                <a href="@Url.Action("Index", "Lessons")" class="btn btn-primary btn-sm col-5 ml-auto">Lessons</a>
+                                <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })" class="btn btn-primary btn-sm col-5 ml-auto">Lessons</a>
                             </div>
                         </div>
                     </div>

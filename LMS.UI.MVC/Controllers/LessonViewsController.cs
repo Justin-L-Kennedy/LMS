@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LMS.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace LMS.UI.MVC.Controllers
 {
@@ -17,8 +18,19 @@ namespace LMS.UI.MVC.Controllers
         // GET: LessonViews
         public ActionResult Index()
         {
-            var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail);
-            return View(lessonViews.ToList());
+            string currentUserID = User.Identity.GetUserId();
+            if (User.IsInRole("Talent"))
+            {
+                var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail).Where(lv => lv.UserID == currentUserID);
+
+                return View(lessonViews.ToList());
+            }
+            else
+            {
+                var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail);
+
+                return View(lessonViews.ToList());
+            }
         }
 
         // GET: LessonViews/Details/5
