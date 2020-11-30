@@ -54,12 +54,18 @@ namespace LMS.UI.MVC.Controllers
             if (ModelState.IsValid)
             {
                 #region File Upload
-                string[] goodExts = new string[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" };
-                //check that the uploaded file ext is in our list of good file extensions && check file size <= 4mb (max by default from ASP.NET)
-                if (goodExts.Contains(lessonFile.FileName.Substring(lessonFile.FileName.LastIndexOf("."))) && lessonFile.ContentLength <= 4194304)
+                string file = "JustinLKennedyResume.pdf";
+                if (lessonFile != null)
                 {
-                    lessonFile.SaveAs(Server.MapPath("~/Content/images/lessons/" + lessonFile.FileName));
+                    file = lessonFile.FileName;
+                    string[] goodExts = new string[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" };
+                    //check that the uploaded file ext is in our list of good file extensions && check file size <= 4mb (max by default from ASP.NET)
+                    if (goodExts.Contains(file.Substring(file.LastIndexOf("."))) && lessonFile.ContentLength <= 4194304)
+                    {
+                        lessonFile.SaveAs(Server.MapPath("~/Content/images/lessons/" + file));
+                    }
                 }
+                lesson.PdfFilename = file;
                 #endregion
 
                 db.Lessons.Add(lesson);
@@ -97,16 +103,21 @@ namespace LMS.UI.MVC.Controllers
             if (ModelState.IsValid)
             {
                 #region File Upload
-                string[] goodExts = new string[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" };
-                //check that the uploaded file ext is in our list of good file extensions && check file size <= 4mb (max by default from ASP.NET)
-                if (goodExts.Contains(lessonFile.FileName.Substring(lessonFile.FileName.LastIndexOf("."))) && lessonFile.ContentLength <= 4194304)
+                if (lessonFile != null)
                 {
-                    if (lesson.PdfFilename != null) //Delete the old file of the record that is being edited
+                    string file = lessonFile.FileName;
+                    string[] goodExts = new string[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" };
+                    //check that the uploaded file ext is in our list of good file extensions && check file size <= 4mb (max by default from ASP.NET)
+                    if (goodExts.Contains(file.Substring(file.LastIndexOf("."))) && lessonFile.ContentLength <= 4194304)
                     {
-                        string path = Server.MapPath("~/Content/images/lessons/");
-                        UploadUtility.Delete(path, lesson.PdfFilename);
+                        if (lesson.PdfFilename != null && lesson.PdfFilename != "JustinLKennedyResume.pdf") //Delete the old file of the record that is being edited
+                        {
+                            string path = Server.MapPath("~/Content/images/lessons/");
+                            UploadUtility.Delete(path, lesson.PdfFilename);
+                        }
+                        lessonFile.SaveAs(Server.MapPath("~/Content/images/lessons/" + file));
                     }
-                    lessonFile.SaveAs(Server.MapPath("~/Content/images/lessons/" + lessonFile.FileName));
+                    lesson.PdfFilename = file;
                 }
                 #endregion
 

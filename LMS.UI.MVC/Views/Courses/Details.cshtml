@@ -99,7 +99,7 @@
                             <ul class="list-styled">
                                 @foreach (var item in Model.Lessons)
                                 {
-                                    <li><a href="@Url.Action("Index", "Lessons", new { id = item.LessonID })">@item.LessonTitle</a></li>
+                                    <li><a href="@Url.Action("Details", "Lessons", new { id = item.LessonID })">@item.LessonTitle</a></li>
                                 }
                             </ul>
                         </div>

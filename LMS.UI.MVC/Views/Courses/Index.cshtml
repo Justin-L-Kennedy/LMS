@@ -31,7 +31,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card p-0 border-primary rounded-0 hover-shadow">
+                    <div class="card p-0 border-warning rounded-0 hover-shadow">
                         <a href="@Url.Action("Details", new { id = item.CourseID })">
                             <img class="card-img-top rounded-0" src="~/Content/images/courses/t_@item.CourseImage" alt="@item.CourseName" title="@item.CourseName">
                         </a>
