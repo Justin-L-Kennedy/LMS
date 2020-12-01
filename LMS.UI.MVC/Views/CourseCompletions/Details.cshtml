@@ -1,21 +1,35 @@
 ﻿@model LMS.DATA.EF.CourseCompletion
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"{Model.Course.CourseName}";
 }
 
-<h2>Details</h2>
+<!-- page title -->
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@Url.Action("Index")">Course Completions</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted">@ViewBag.Title</li>
+                </ul>
+                <p class="text-lighten">Keyser Söze.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /page title -->
 
 <div>
-    <h4>CourseCompletion</h4>
+    <h4>Course Completion</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DateCompleted)
+            @Html.DisplayNameFor(model => model.UserDetail.FullName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateCompleted)
+            @Html.DisplayFor(model => model.UserDetail.FullName)
         </dd>
 
         <dt>
@@ -27,11 +41,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+            @Html.DisplayNameFor(model => model.DateCompleted)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserDetail.FirstName)
+            @Html.DisplayFor(model => model.DateCompleted)
         </dd>
 
     </dl>

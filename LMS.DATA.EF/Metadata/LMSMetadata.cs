@@ -37,13 +37,11 @@ namespace LMS.DATA.EF//.Metadata
     [MetadataType(typeof(CourseMetadata))]
     public partial class Course
     {
+        public bool HasCompleted { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Completed")]
         public System.DateTime DateCompleted { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Date Viewed")]
-        public System.DateTime DateViewed { get; set; }
     }
     #endregion
 

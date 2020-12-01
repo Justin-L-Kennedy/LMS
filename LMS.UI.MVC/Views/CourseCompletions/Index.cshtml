@@ -1,10 +1,24 @@
 ﻿@model IEnumerable<LMS.DATA.EF.CourseCompletion>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Course Completions";
 }
 
-<h2>Index</h2>
+<!-- page title -->
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">@ViewBag.Title</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted"></li>
+                </ul>
+                <p class="text-lighten">Keyser Söze.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /page title -->
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,34 +26,35 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DateCompleted)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Course.CourseName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+            @Html.DisplayNameFor(model => model.DateCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserDetail.FullName)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCompleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseCompletionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseCompletionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseCompletionID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCompleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserDetail.FullName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CourseCompletionID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CourseCompletionID })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -24,6 +24,18 @@ namespace LMS.UI.MVC.Controllers
             if (id == null)
             {
                 var lessons = db.Lessons.Include(l => l.Course);
+                var lessonViews = db.LessonViews.Where(lv => lv.UserID == currentUserID);
+                foreach (var item in lessons)
+                {
+                    foreach (var view in lessonViews)
+                    {
+                        if (view.LessonID == item.LessonID)
+                        {
+                            item.HasViewed = true;
+                            item.DateViewed = view.DateViewed;
+                        }
+                    }
+                }
                 return View(lessons.ToList());
             }
             else
@@ -103,6 +115,7 @@ namespace LMS.UI.MVC.Controllers
                         db.SaveChanges();
 
                         #region Course Completion Email
+                        courseCompletion = db.CourseCompletions.Where(cc => cc.UserID == currentUserID && cc.CourseID == lesson.CourseID).Include(l => l.UserDetail).Include(l => l.Course).FirstOrDefault();
                         string emailBody = $"{courseCompletion.UserDetail.FullName} completed the {courseCompletion.Course.CourseName} course on {courseCompletion.DateCompleted:d}.";
                         MailMessage completionMsg = new MailMessage(
                             "no-reply@justinlkennedy.com",
@@ -113,6 +126,14 @@ namespace LMS.UI.MVC.Controllers
                         completionMsg.Priority = MailPriority.High;
                         SmtpClient client = new SmtpClient("mail.justinlkennedy.com");
                         client.Credentials = new NetworkCredential("no-reply@justinlkennedy.com", "C3ntr!q");
+                        try
+                        {
+                            client.Send(completionMsg);
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.ErrorMessage = $"Sorry, something went wrong. Error message: {ex.Message}<br />{ex.StackTrace}";
+                        }
                         #endregion
                     }
                 }

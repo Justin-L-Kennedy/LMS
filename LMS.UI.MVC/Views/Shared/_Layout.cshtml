@@ -101,7 +101,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Events</a>
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Events</a>
                             </li>
                             <li class="nav-item">
                                 @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
@@ -244,6 +244,8 @@
                 $('#liHome').addClass('active');
             }
         });
+
+        $('a[href="' + this.location.pathname + '"]').parents('div,li').addClass('active');
     </script>
 
 </body>

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using LMS.DATA.EF;
 using LMS.UI.MVC.Utilities; //added for access to Utilities
 using LMS.UI.MVC.Models;
+using Microsoft.AspNet.Identity;
 
 namespace LMS.UI.MVC.Controllers
 {
@@ -20,6 +21,24 @@ namespace LMS.UI.MVC.Controllers
         // GET: Courses
         public ActionResult Index()
         {
+            string currentUserID = User.Identity.GetUserId();
+            if (User.IsInRole("Talent"))
+            {
+                var courses = db.Courses;
+                var courseCompletions = db.CourseCompletions.Where(cc => cc.UserID == currentUserID);
+                foreach (var item in courses)
+                {
+                    foreach (var complete in courseCompletions)
+                    {
+                        if (complete.CourseID == item.CourseID)
+                        {
+                            item.HasCompleted = true;
+                            item.DateCompleted = complete.DateCompleted;
+                        }
+                    }
+                }
+                return View(courses.ToList());
+            }
             return View(db.Courses.ToList());
         }
 
@@ -35,6 +54,36 @@ namespace LMS.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+
+            string currentUserID = User.Identity.GetUserId();
+            if (User.IsInRole("Talent"))
+            {
+                var lessons = db.Lessons.Include(l => l.Course).Where(l => l.CourseID == id);
+                var lessonViews = db.LessonViews.Where(lv => lv.UserID == currentUserID);
+                foreach (var item in lessons)
+                {
+                    foreach (var view in lessonViews)
+                    {
+                        if (view.LessonID == item.LessonID)
+                        {
+                            item.HasViewed = true;
+                            item.DateViewed = view.DateViewed;
+                        }
+                    }
+                }
+                ViewBag.LessonViewsCount = db.LessonViews.Where(lv => lv.UserID == currentUserID && lv.Lesson.CourseID == id && lv.DateViewed != new DateTime(0001, 1, 1)).Count();
+
+                var courseCompletions = db.CourseCompletions.Where(cc => cc.UserID == currentUserID);
+                foreach (var complete in courseCompletions)
+                {
+                    if (complete.CourseID == course.CourseID)
+                    {
+                        course.HasCompleted = true;
+                        course.DateCompleted = complete.DateCompleted;
+                    }
+                }
+            }
+
             return View(course);
         }
 

@@ -22,13 +22,11 @@ namespace LMS.UI.MVC.Controllers
             if (User.IsInRole("Talent"))
             {
                 var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail).Where(lv => lv.UserID == currentUserID);
-
                 return View(lessonViews.ToList());
             }
             else
             {
                 var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail);
-
                 return View(lessonViews.ToList());
             }
         }
