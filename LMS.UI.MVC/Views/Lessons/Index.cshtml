@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
-                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">@ViewBag.Title</a></li>
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#Lessons">@ViewBag.Title</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted"></li>
                 </ul>
                 <p class="text-lighten">Keyser Söze.</p>
@@ -20,11 +20,14 @@
 </section>
 <!-- /page title -->
 <!-- courses -->
-<section class="section">
+<section class="section" id="Lessons">
     <div class="container">
         <div class="row">
             <div class="col-md-6 mb-2">
-                @Html.ActionLink("CREATE NEW", "Create", "Lessons", null, new { @class = "btn btn-primary btn-sm" })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("CREATE NEW", "Create", "Lessons", null, new { @class = "btn btn-primary btn-sm" })
+                }
             </div>
             <div class="col-md-6 mb-2">
                 <ul class="grid">
@@ -59,8 +62,11 @@
                                     </a>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <a class="text-color" href="@Url.Action("Edit", new { id = item.LessonID })"><i class="ti-pencil-alt"></i></a>
-                                    <a class="text-color" href="@Url.Action("Delete", new { id = item.LessonID })"><i class="ti-trash"></i></a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-color" href="@Url.Action("Edit", new { id = item.LessonID })"><i class="ti-pencil-alt"></i></a>
+                                        <a class="text-color" href="@Url.Action("Delete", new { id = item.LessonID })"><i class="ti-trash"></i></a>
+                                    }
                                 </div>
                             </div>
                             <a href="@Url.Action("Details", new { id = item.LessonID })">

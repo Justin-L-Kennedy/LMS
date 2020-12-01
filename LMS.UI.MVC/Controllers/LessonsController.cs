@@ -114,6 +114,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: Lessons/Details/5
+        [Authorize(Roles = "Admin, Manager, Talent")]
         public ActionResult Details(int id)
         {
             if (id == null)
@@ -192,6 +193,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: Lessons/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
@@ -203,6 +205,7 @@ namespace LMS.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase lessonFile)
         {
             if (ModelState.IsValid)
@@ -232,6 +235,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: Lessons/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -252,6 +256,7 @@ namespace LMS.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "LessonID,LessonTitle,CourseID,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase lessonFile)
         {
             if (ModelState.IsValid)
@@ -284,6 +289,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: Lessons/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -301,6 +307,7 @@ namespace LMS.UI.MVC.Controllers
         // POST: Lessons/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Lesson lesson = db.Lessons.Find(id);

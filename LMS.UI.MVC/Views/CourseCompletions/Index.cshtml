@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
-                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">@ViewBag.Title</a></li>
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#CourseCompletions">@ViewBag.Title</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted"></li>
                 </ul>
                 <p class="text-lighten">Keyser Söze.</p>
@@ -20,11 +20,14 @@
 </section>
 <!-- /page title -->
 
-<div class="section">
+<div class="section" id="CourseCompletions">
     <div class="container">
-        <p>
-            @Html.ActionLink("CREATE NEW", "Create", "CourseCompletions", null, new { @class = "btn btn-primary btn-sm" })
-        </p>
+        @if (User.IsInRole("Admin"))
+        {
+            <p>
+                @Html.ActionLink("CREATE NEW", "Create", "CourseCompletions", null, new { @class = "btn btn-primary btn-sm" })
+            </p>
+        }
         <table class="table data-table table-striped">
             <thead>
                 <tr>
@@ -37,7 +40,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.UserDetail.FullName)
                     </th>
-                    <th></th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th></th>
+                    }
                 </tr>
             </thead>
 
@@ -56,11 +62,14 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.UserDetail.FullName)
                         </td>
-                        <td>
-                            <a class="text-color mr-2" href="@Url.Action("Edit", new { id = item.CourseCompletionID })"><i class="ti-pencil-alt"></i></a>
-                            <a class="text-color mr-2" href="@Url.Action("Details", new { id = item.CourseCompletionID})"><i class="ti-info-alt"></i></a>
-                            <a class="text-color mr-2" href="@Url.Action("Delete", new { id = item.CourseCompletionID })"><i class="ti-trash"></i></a>
-                        </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a class="text-color mr-2" href="@Url.Action("Edit", new { id = item.CourseCompletionID })"><i class="ti-pencil-alt"></i></a>
+                                <a class="text-color mr-2" href="@Url.Action("Details", new { id = item.CourseCompletionID })"><i class="ti-info-alt"></i></a>
+                                <a class="text-color mr-2" href="@Url.Action("Delete", new { id = item.CourseCompletionID })"><i class="ti-trash"></i></a>
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>

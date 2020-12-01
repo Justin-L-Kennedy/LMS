@@ -24,7 +24,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 mb-2">
-                @Html.ActionLink("CREATE NEW", "Create", "Courses", null, new { @class = "btn btn-primary btn-sm" })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("CREATE NEW", "Create", "Courses", null, new { @class = "btn btn-primary btn-sm" })
+                }
             </div>
             <div class="col-md-6 mb-2">
                 <ul class="grid">
@@ -48,10 +51,13 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Lessons)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.IsActive)
-                    </th>
-                    <th></th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsActive)
+                        </th>
+                        <th></th>
+                    }
                 </tr>
             </thead>
 
@@ -82,16 +88,19 @@
                             </a>
                         </td>
                         <td>
-                            <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })" class="btn btn-primary btn-sm col-5 ml-auto">Lessons</a>
+                            <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })" class="btn btn-primary btn-sm">Lessons</a>
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </td>
-                        <td>
-                            <a class="text-color mr-2" href="@Url.Action("Edit", new { id = item.CourseID })"><i class="ti-pencil-alt"></i></a>
-                            <a class="text-color mr-2" href="@Url.Action("Details", new { id = item.CourseID})"><i class="ti-info-alt"></i></a>
-                            <a class="text-color mr-2" href="@Url.Action("Delete", new { id = item.CourseID })"><i class="ti-trash"></i></a>
-                        </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td>
+                                <a class="text-color mr-2" href="@Url.Action("Edit", new { id = item.CourseID })"><i class="ti-pencil-alt"></i></a>
+                                <a class="text-color mr-2" href="@Url.Action("Details", new { id = item.CourseID })"><i class="ti-info-alt"></i></a>
+                                <a class="text-color mr-2" href="@Url.Action("Delete", new { id = item.CourseID })"><i class="ti-trash"></i></a>
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>

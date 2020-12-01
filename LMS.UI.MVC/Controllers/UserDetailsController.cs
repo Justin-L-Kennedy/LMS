@@ -15,6 +15,7 @@ namespace LMS.UI.MVC.Controllers
         private LMSEntities db = new LMSEntities();
 
         // GET: UserDetails
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Index()
         {
             var userDetails = db.UserDetails.Include(u => u.AspNetUser);
@@ -22,6 +23,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: UserDetails/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: UserDetails/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
@@ -48,6 +51,7 @@ namespace LMS.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "UserID,FirstName,LastName")] UserDetail userDetail)
         {
             if (ModelState.IsValid)
@@ -62,6 +66,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: UserDetails/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -82,6 +87,7 @@ namespace LMS.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName")] UserDetail userDetail)
         {
             if (ModelState.IsValid)
@@ -95,6 +101,7 @@ namespace LMS.UI.MVC.Controllers
         }
 
         // GET: UserDetails/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -112,6 +119,7 @@ namespace LMS.UI.MVC.Controllers
         // POST: UserDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(string id)
         {
             UserDetail userDetail = db.UserDetails.Find(id);

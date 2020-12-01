@@ -41,7 +41,7 @@
                             <div class="text-left">
                                 <h6 class="mb-0">LESSONS</h6>
                                 <div class="mt-1">
-                                    <a class="text-color mb-0" href="@Url.Action("Index", "LessonViews")">@ViewBag.LessonViewsCount of @Model.Lessons.Count Completed</a>
+                                    <a class="text-color mb-0" href="@Url.Action("Index", "LessonViews")">@(ViewBag.LessonViewsCount == null ? "0" : ViewBag.LessonViewsCount) of @Model.Lessons.Count Completed</a>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +188,3 @@
     </div>
 </section>
 <!-- /related course -->
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseID })
-</p>
