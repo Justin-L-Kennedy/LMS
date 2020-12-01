@@ -20,6 +20,7 @@ namespace LMS.UI.MVC
 
             bundles.Add(new ScriptBundle("~/bundles/template").Include(
                       "~/Content/plugins/jQuery/jquery.min.js",
+                      "~/Scripts/jquery.dataTables.min.js",
                       "~/Content/plugins/bootstrap/bootstrap.min.js",
                       "~/Content/plugins/slick/slick.min.js",
                       "~/Content/plugins/aos/aos.js",
@@ -35,6 +36,7 @@ namespace LMS.UI.MVC
                       "~/Content/plugins/animate/animate.css",
                       "~/Content/plugins/aos/aos.css",
                       "~/Content/plugins/venobox/venobox.css",
+                      "~/Content/css/jquery.dataTables.min.css",
                       "~/Content/css/style.css"));
         }
     }

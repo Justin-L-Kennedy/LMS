@@ -20,69 +20,73 @@
 </section>
 <!-- /page title -->
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Lesson</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LessonTitle)
-        </dt>
+<div class="section">
+    <div class="container">
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>Lesson</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.LessonTitle)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LessonTitle)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.LessonTitle)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Introduction)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Introduction)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Introduction)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Introduction)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VideoURL)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.VideoURL)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.VideoURL)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.VideoURL)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PdfFilename)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PdfFilename)
+                </dt>
 
-        <dd>
-            @*@Html.DisplayFor(model => model.PdfFilename)*@
-            <iframe src="~/Content/images/lessons/@Model.PdfFilename" style="width: 100%; height: 600px"></iframe>
-        </dd>
+                <dd>
+                    @*@Html.DisplayFor(model => model.PdfFilename)*@
+                    <iframe src="~/Content/images/lessons/@Model.PdfFilename" style="width: 100%; height: 600px"></iframe>
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.IsActive)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Course.CourseName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Course.CourseName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course.CourseName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Course.CourseName)
+                </dd>
 
-    </dl>
+            </dl>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <button type="submit" class="btn btn-primary">DELETE</button> |
-            @Html.ActionLink("Back to List", "Index")
+                <div class="form-actions no-color">
+                    <button type="submit" class="btn btn-primary">DELETE</button> |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>

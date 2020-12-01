@@ -836,6 +836,49 @@ link:focus,
 }
 
 /* /course */
+/*-- Course Grid --*/
+.grid {
+  float: right;
+}
+
+.grid li {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 44px;
+  background-color: #FFF;
+  border: 1px solid #1A1A37;
+  text-align: center;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.grid li+li {
+  margin-left: 5px;
+}
+
+.grid li:hover {
+  background-color: #E4E7ED;
+  color: #FFBC3B;
+}
+
+.grid li.active {
+  background-color: #FFBC3B;
+  border-color: #1A1A37;
+  color: #1A1A37;
+  cursor: default;
+}
+
+.grid li a {
+  display: block;
+  color: #FFBC3B;
+}
+
+.grid li a:hover {
+    color: #1A1A37;
+}
+
+/*-- Course Grid --*/
 /* success story */
 .success-video {
   min-height: 300px;

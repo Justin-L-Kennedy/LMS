@@ -20,37 +20,41 @@
 </section>
 <!-- /page title -->
 
-<div>
-    <h4>Lesson View</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserDetail.FullName)
-        </dt>
+<div class="section">
+    <div class="container">
+        <div>
+            <h4>Lesson View</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserDetail.FullName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserDetail.FullName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.UserDetail.FullName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Lesson.LessonTitle)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lesson.LessonTitle)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Lesson.LessonTitle)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Lesson.LessonTitle)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateViewed)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DateViewed)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateViewed)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.DateViewed)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.LessonViewID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.LessonViewID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

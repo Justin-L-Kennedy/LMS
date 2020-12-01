@@ -42,6 +42,30 @@ namespace LMS.UI.MVC.Controllers
             return View(db.Courses.ToList());
         }
 
+        // GET: CoursesTable
+        public ActionResult CoursesTable()
+        {
+            string currentUserID = User.Identity.GetUserId();
+            if (User.IsInRole("Talent"))
+            {
+                var courses = db.Courses;
+                var courseCompletions = db.CourseCompletions.Where(cc => cc.UserID == currentUserID);
+                foreach (var item in courses)
+                {
+                    foreach (var complete in courseCompletions)
+                    {
+                        if (complete.CourseID == item.CourseID)
+                        {
+                            item.HasCompleted = true;
+                            item.DateCompleted = complete.DateCompleted;
+                        }
+                    }
+                }
+                return View(courses.ToList());
+            }
+            return View(db.Courses.ToList());
+        }
+
         // GET: Courses/Details/5
         public ActionResult Details(int? id)
         {

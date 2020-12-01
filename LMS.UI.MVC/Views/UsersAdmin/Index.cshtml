@@ -20,31 +20,49 @@
 </section>
 <!-- /page title -->
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
+<div class="section">
+    <div class="container">
+        <p>
+            @Html.ActionLink("CREATE NEW", "Create", "UsersAdmin", null, new { @class = "btn btn-primary btn-sm" })
+        </p>
+        <table class="table data-table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th>
 
-        </th>
-    </tr>
+                    </th>
+                </tr>
+            </thead>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            <a class="text-color mr-2" href="@Url.Action("Edit", new { id = item.Id })"><i class="ti-pencil-alt"></i></a>
+                            <a class="text-color mr-2" href="@Url.Action("Details", new { id = item.Id})"><i class="ti-info-alt"></i></a>
+                            <a class="text-color mr-2" href="@Url.Action("Delete", new { id = item.Id })"><i class="ti-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
-</table>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".data-table").DataTable({
+                "order": [[0, "asc"]]
+            });
+        });
+    </script>
+}

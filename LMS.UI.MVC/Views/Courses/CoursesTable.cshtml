@@ -1,0 +1,109 @@
+﻿@model IEnumerable<LMS.DATA.EF.Course>
+
+@{
+    ViewBag.Title = "Our Courses";
+}
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="/Content/images/backgrounds/page-title.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline custom-breadcrumb">
+                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#Courses">@ViewBag.Title</a></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted"></li>
+                </ul>
+                <p class="text-lighten">Our courses offer aspiring actors the opportunity to gain a better understanding of the entertainment industry and how to jump-start a successful career in acting.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /page title -->
+
+<div class="section" id="Courses">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-2">
+                @Html.ActionLink("CREATE NEW", "Create", "Courses", null, new { @class = "btn btn-primary btn-sm" })
+            </div>
+            <div class="col-md-6 mb-2">
+                <ul class="grid">
+                    <li><a href="@Url.Action("Index")"><i class="ti-layout-grid3"></i></a></li>
+                    <li class="active"><i class="ti-view-list-alt"></i></li>
+                </ul>
+            </div>
+        </div>
+        <table class="table data-table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCompleted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lessons)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td data-order="@item.CourseID">
+                            <a href="@Url.Action("Details", new { id = item.CourseID })">
+                                <img width="125" src="~/Content/images/courses/t_@item.CourseImage" alt="@item.CourseName" title="@item.CourseName" />
+                            </a>
+                        </td>
+                        <td>
+                            <a class="text-color" href="@Url.Action("Details", new { id = item.CourseID })">
+                                @Html.DisplayFor(modelItem => item.CourseName)
+                            </a>
+                        </td>
+                        <td>
+                            <a class="text-color" href="@Url.Action("Index", "CourseCompletions")">
+                                @if (item.DateCompleted == new DateTime(0001, 1, 1))
+                                {
+                                    @($"Incomplete")
+                                }
+                                else
+                                {
+                                    @($"Completed: {item.DateCompleted:d}")
+                                }
+                            </a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })" class="btn btn-primary btn-sm col-5 ml-auto">Lessons</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            <a class="text-color mr-2" href="@Url.Action("Edit", new { id = item.CourseID })"><i class="ti-pencil-alt"></i></a>
+                            <a class="text-color mr-2" href="@Url.Action("Details", new { id = item.CourseID})"><i class="ti-info-alt"></i></a>
+                            <a class="text-color mr-2" href="@Url.Action("Delete", new { id = item.CourseID })"><i class="ti-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".data-table").DataTable();
+        });
+    </script>
+}

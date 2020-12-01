@@ -65,6 +65,54 @@ namespace LMS.UI.MVC.Controllers
             }
         }
 
+        // GET: LessonsTable
+        public ActionResult LessonsTable(int? id)
+        {
+            string currentUserID = User.Identity.GetUserId();
+            if (id == null)
+            {
+                var lessons = db.Lessons.Include(l => l.Course);
+                var lessonViews = db.LessonViews.Where(lv => lv.UserID == currentUserID);
+                foreach (var item in lessons)
+                {
+                    foreach (var view in lessonViews)
+                    {
+                        if (view.LessonID == item.LessonID)
+                        {
+                            item.HasViewed = true;
+                            item.DateViewed = view.DateViewed;
+                        }
+                    }
+                }
+                return View(lessons.ToList());
+            }
+            else
+            {
+                if (User.IsInRole("Talent"))
+                {
+                    var lessons = db.Lessons.Include(l => l.Course).Where(l => l.CourseID == id);
+                    var lessonViews = db.LessonViews.Where(lv => lv.UserID == currentUserID);
+                    foreach (var item in lessons)
+                    {
+                        foreach (var view in lessonViews)
+                        {
+                            if (view.LessonID == item.LessonID)
+                            {
+                                item.HasViewed = true;
+                                item.DateViewed = view.DateViewed;
+                            }
+                        }
+                    }
+                    return View(lessons.ToList());
+                }
+                else
+                {
+                    var lessons = db.Lessons.Include(l => l.Course).Where(l => l.CourseID == id);
+                    return View(lessons.ToList());
+                }
+            }
+        }
+
         // GET: Lessons/Details/5
         public ActionResult Details(int id)
         {
