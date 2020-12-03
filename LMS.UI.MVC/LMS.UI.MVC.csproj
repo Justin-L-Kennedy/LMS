@@ -235,6 +235,9 @@
     <Content Include="Content\images\about\about-page.jpg" />
     <Content Include="Content\images\about\about-us.jpg" />
     <Content Include="Content\images\about\video-thumb.jpg" />
+    <Content Include="Content\images\android-chrome-192x192.png" />
+    <Content Include="Content\images\android-chrome-512x512.png" />
+    <Content Include="Content\images\apple-touch-icon.png" />
     <Content Include="Content\images\backgrounds\page-title.jpg" />
     <Content Include="Content\images\backgrounds\success-story.jpg" />
     <Content Include="Content\images\back_disabled.png" />
@@ -261,11 +264,13 @@
     <Content Include="Content\images\events\event-2.jpg" />
     <Content Include="Content\images\events\event-3.jpg" />
     <Content Include="Content\images\events\event-single.jpg" />
+    <Content Include="Content\images\favicon-16x16.png" />
     <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\favicon.png" />
     <Content Include="Content\images\forward_disabled.png" />
     <Content Include="Content\images\forward_enabled.png" />
     <Content Include="Content\images\forward_enabled_hover.png" />
+    <Content Include="Content\images\JustAct.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\preloader.gif" />
     <Content Include="Content\images\research\research-1.jpg" />
@@ -443,6 +448,7 @@
     <Content Include="Content\datatables.extensions\TableTools\images\psd\copy document.psd" />
     <Content Include="Content\datatables.extensions\TableTools\images\psd\collection.psd" />
     <Content Include="Content\datatables.extensions\Responsive\css\dataTables.responsive.scss" />
+    <Content Include="Content\JustinLKennedyDocumentation.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

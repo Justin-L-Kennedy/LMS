@@ -79,6 +79,7 @@ namespace LMS.UI.MVC.Controllers
                 return HttpNotFound();
             }
 
+            #region Get Lesson Views & Course Completions By Current User
             string currentUserID = User.Identity.GetUserId();
             if (User.IsInRole("Talent"))
             {
@@ -107,6 +108,7 @@ namespace LMS.UI.MVC.Controllers
                     }
                 }
             }
+            #endregion
 
             return View(course);
         }

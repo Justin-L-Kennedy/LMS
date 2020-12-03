@@ -884,7 +884,7 @@ link:focus,
 /*-- Course Grid --*/
 /* success story */
 .success-video {
-  min-height: 300px;
+  min-height: 100px;
 }
 
 .success-video .play-btn {

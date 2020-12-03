@@ -189,6 +189,25 @@ namespace LMS.UI.MVC.Controllers
             }
             #endregion
 
+            #region Get Lesson Views By Current User
+            if (User.IsInRole("Talent"))
+            {
+                var lessons = db.Lessons.Include(l => l.Course).Where(l => l.CourseID == id);
+                var lessonViews = db.LessonViews.Where(lv => lv.UserID == currentUserID);
+                foreach (var item in lessons)
+                {
+                    foreach (var view in lessonViews)
+                    {
+                        if (view.LessonID == item.LessonID)
+                        {
+                            item.HasViewed = true;
+                            item.DateViewed = view.DateViewed;
+                        }
+                    }
+                }
+            }
+            #endregion
+
             return View(lesson);
         }
 
